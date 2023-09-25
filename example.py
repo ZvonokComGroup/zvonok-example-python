@@ -4,7 +4,7 @@ import requests
 
 
 CALLTOOLS_PUBLIC_KEY = 'test_public_key'
-CALLTOOLS_BASE_URL = 'https://calltools.ru'
+CALLTOOLS_BASE_URL = 'https://zvonok.com'
 CALLTOOLS_TIMEOUT = 30
 
 
@@ -21,7 +21,7 @@ def create_call(campaign_id, phonenumber, text=None, speaker='Tatyana'):
     :type speaker: str
     :rtype: dict
     '''
-    resp = requests.get(CALLTOOLS_BASE_URL + '/lk/cabapi_external/api/v1/phones/call/', {
+    resp = requests.get(CALLTOOLS_BASE_URL + '/manager/cabapi_external/api/v1/phones/call/', {
         'public_key': CALLTOOLS_PUBLIC_KEY,
         'phone': phonenumber,
         'campaign_id': campaign_id,
@@ -49,9 +49,9 @@ def check_status(campaign_id, phonenumber=None, call_id=None,
     :rtype: dict
     '''
     if phonenumber:
-        url = '/lk/cabapi_external/api/v1/phones/calls_by_phone/'
+        url = '/manager/cabapi_external/api/v1/phones/calls_by_phone/'
     elif call_id:
-        url = '/lk/cabapi_external/api/v1/phones/call_by_id/'
+        url = '/manager/cabapi_external/api/v1/phones/call_by_id/'
     else:
         raise ValueError('check_status required call_id or phonenumber')
 
@@ -83,7 +83,7 @@ def remove_call(campaign_id, phonenumber=None, call_id=None):
     if not phonenumber and not call_id:
         raise ValueError('remove_call required call_id or phonenumber')
 
-    resp = requests.get(CALLTOOLS_BASE_URL + '/lk/cabapi_external/api/v1/phones/remove_call/', {
+    resp = requests.get(CALLTOOLS_BASE_URL + '/manager/cabapi_external/api/v1/phones/remove_call/', {
         'public_key': CALLTOOLS_PUBLIC_KEY,
         'phone': phonenumber,
         'call_id': call_id,
